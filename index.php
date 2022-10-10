@@ -35,27 +35,27 @@
                     <form action="guardar.php" method="POST">
                         <div class="mb-3">
                             <label for="id">Identificacion</label>
-                                <br>
-                                <input type="number" name="id" placeholder="ID" id="id" title="Ingrese su fecha de nacimiento" class="form-control" required>
-            
+                            <br>
+                            <input type="number" name="id" placeholder="ID" id="id" title="Ingrese su fecha de nacimiento" class="form-control" required>
+
                         </div>
                         <div class="mb-3">
                             <label for="nombre">Nombre</label>
-                                <br>
-                                <input type="text" name="nombre" placeholder="Nombre" id="nombre" title="Ingrese su nombre" class="form-control" required>
-                            
+                            <br>
+                            <input type="text" name="nombre" placeholder="Nombre" id="nombre" title="Ingrese su nombre" class="form-control" required>
+
                         </div>
                         <div class="mb-3">
                             <label for="fecha-Nacimiento">Fecha de Nacimiento</label>
-                                <br>
-                                <input type="date" name="fecha-Nacimiento" id="Fecha-Nacimiento" title="Ingrese su fecha de nacimiento" class="form-control">
-                            
+                            <br>
+                            <input type="date" name="fecha-Nacimiento" id="Fecha-Nacimiento" title="Ingrese su fecha de nacimiento" class="form-control">
+
                         </div>
                         <div class="mb-3">
                             <label for="papa">papa</label>
-                                <br>
-                                <input type="number" name="papa" placeholder="PAPA" id="papa" title="Ingrese su papa" class="form-control" onchange="verificar()">
-                            
+                            <br>
+                            <input type="number" name="papa" placeholder="PAPA" id="papa" title="Ingrese su papa" class="form-control" onchange="verificar()">
+
                         </div>
                         <input type="submit" class="btn btn-success btn-block" name="save" value="Guardar">
                     </form>
@@ -63,17 +63,39 @@
                 </div>
             </div>
             <div class="col-md-8">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Fecha de nacimiento</th>
-                                <th scope="col">PAPA</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Fecha de nacimiento</th>
+                            <th scope="col">PAPA</th>
+                        </tr>
+                    </thead>
+                    <?php
+                    $query = "SELECT * FROM estudiante";
+                    $result = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($result)) { ?>
+                        <tr>
+                            <td><?php echo $row['id'] ?></td>
+                            <td><?php echo $row['nombre'] ?></td>
+                            <td><?php echo $row['fechaNacimiento'] ?></td>
+                            <td><?php echo $row['papa'] ?></td>
+                            <td>
+                                <a href="editar.php?id=<?php echo $row['id'] ?>">
+                                    <i class="bi bi-pencil-fill"></i>
+                                    <?php  echo "editar"; ?>
+                                </a>
+                                <a href="eliminar.php?id=<?php echo $row['id'] ?>">
+                                    <i class="bi bi-trash-fill"></i>
+                                    <?php  echo "eliminar"; ?>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+                </table>
+            </div>
         </div>
     </div>
 
@@ -84,4 +106,5 @@
 
 </body>
 <script src="verificar.js"></script>
+
 </html>
